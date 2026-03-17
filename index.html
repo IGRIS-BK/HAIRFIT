@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAIRFIT</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <h1 class="logo">HAIR<span>FIT</span></h1>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#styles">Styles</a>
+    <a href="#features">About</a>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <h1>THE ART</h1>
+    <p class="hero-sub">
+      Discover styles that match your face and personality.
+    </p>
+    <button class="btn" onclick="scrollToStyles()">Get Started</button>
+  </div>
+
+  <div class="hero-right">
+    <img src="image/Bonj.png" alt="Barber">
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="features" id="features">
+  <h2>Why HAIRFIT?</h2>
+
+  <div class="cards">
+
+    <div class="card glass">
+      <i class="fa-solid fa-bullseye"></i>
+      <h3>Face Shape Matching</h3>
+      <p>Get haircut suggestions tailored to your face shape.</p>
+    </div>
+
+    <div class="card glass">
+      <i class="fa-solid fa-scissors"></i>
+      <h3>Style Inspiration</h3>
+      <p>Explore haircut styles with real images.</p>
+    </div>
+
+    <div class="card glass">
+      <i class="fa-solid fa-fire"></i>
+      <h3>Confidence Boost</h3>
+      <p>Choose a look that enhances your personality.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= FACE SHAPES ================= -->
+<section class="face-shapes" id="styles">
+  <h2>Choose Your Face Shape</h2>
+  <p>Select your face shape to see haircut suggestions.</p>
+
+  <div class="shape-grid">
+
+    <div class="shape-card">
+      <img src="image/Oval1.jpg" alt="Oval" />
+      <h3>Oval</h3>
+      <button onclick="showHaircuts('Oval')">Select</button>
+    </div>
+
+    <div class="shape-card">
+      <img src="image/Round1.jpg" alt="Round" />
+      <h3>Round</h3>
+      <button onclick="showHaircuts('Round')">Select</button>
+    </div>
+
+    <div class="shape-card">
+      <img src="image/Square1.jpg" alt="Square" />
+      <h3>Square</h3>
+      <button onclick="showHaircuts('Square')">Select</button>
+    </div>
+
+    <div class="shape-card">
+      <img src="image/Heart1.jpg" alt="Heart" />
+      <h3>Heart</h3>
+      <button onclick="showHaircuts('Heart')">Select</button>
+    </div>
+
+    <div class="shape-card">
+      <img src="image/Diamond1.jpg" alt="Diamond" />
+      <h3>Diamond</h3>
+      <button onclick="showHaircuts('Diamond')">Select</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= RESULTS ================= -->
+<section class="results" id="results">
+  <div class="results-container">
+    <h2 id="resultTitle" class="results-title"></h2>
+    <div class="underline"></div>
+
+    <div class="result-grid" id="resultGrid"></div>
+  </div>
+</section>
+
+<!-- ================= MODAL ================= -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <img id="modalImg" alt="Haircut Preview" />
+
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
+    <p id="modalMatch" class="match"></p>
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>© 2026 HAIRFIT. All rights reserved.</p>
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+
+/* SCROLL BUTTON */
+function scrollToStyles() {
+  document.getElementById("styles")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+/* 🔥 DO NOT TOUCH (YOUR DATA) */
+const haircutData = {
+  Oval: [
+    {
+      name: "Taper Fade",
+      img: "image/Oval1.jpg",
+      desc: "Clean and classic fade that blends naturally.",
+      match: "Best for: Oval, Square"
+    },
+    {
+      name: "Burst Fade",
+      img: "image/Oval2.jpg",
+      desc: "Fade curves around the ear for a bold modern look.",
+      match: "Best for: Round, Oval"
+    },
+    {
+      name: "French Crop",
+      img: "image/Oval3.jpg",
+      desc: "Short fringe style with texture.",
+      match: "Best for: Oval, Diamond"
+    }
+  ],
+
+  Round: [
+    {
+      name: "Burst Fade",
+      img: "image/Round1.jpg",
+      desc: "Adds sharp angles to balance a round face.",
+      match: "Best for: Round"
+    },
+    {
+      name: "Warrior Cut",
+      img: "image/Round2.jpg",
+      desc: "Strong and bold style that elongates the face.",
+      match: "Best for: Round, Square"
+    },
+    {
+      name: "Undercut",
+      img: "image/Round3.jpg",
+      desc: "Creates contrast and sharp structure.",
+      match: "Best for: Round"
+    },
+    {
+      name: "Quiff",
+      img: "image/Round4.jpg",
+      desc: "Adds height to make face appear longer.",
+      match: "Best for: Round"
+    }
+  ],
+
+  Square: [
+    {
+      name: "Textured Crop",
+      img: "image/Square1.jpg",
+      desc: "Softens strong jawlines with texture.",
+      match: "Best for: Square"
+    },
+    {
+      name: "Surfers Cut",
+      img: "image/Square2.jpg",
+      desc: "Relaxed waves to reduce sharp angles.",
+      match: "Best for: Square"
+    },
+    {
+      name: "Buzz Cut",
+      img: "image/Square3.jpg",
+      desc: "Minimalist style that highlights facial structure.",
+      match: "Best for: Square"
+    },
+    {
+      name: "Burst Fade",
+      img: "image/Square4.jpg",
+      desc: "Modern fade that blends sharp edges.",
+      match: "Best for: Square"
+    }
+  ],
+
+  Heart: [
+    {
+      name: "Textured Fringe",
+      img: "image/Heart1.jpg",
+      desc: "Balances wider forehead with fringe.",
+      match: "Best for: Heart"
+    },
+    {
+      name: "Undercut Long Top",
+      img: "image/Heart2.jpg",
+      desc: "Draws attention upward.",
+      match: "Best for: Heart, Oval"
+    },
+    {
+      name: "Wavy Shaggy",
+      img: "image/Heart3.jpg",
+      desc: "Adds volume around jawline.",
+      match: "Best for: Heart"
+    }
+  ],
+
+  Diamond: [
+    {
+      name: "Blowout Taper",
+      img: "image/Diamond1.jpg",
+      desc: "Adds width to forehead and chin.",
+      match: "Best for: Diamond"
+    },
+    {
+      name: "Texture Fringe",
+      img: "image/Diamond2.jpg",
+      desc: "Softens cheekbones.",
+      match: "Best for: Diamond"
+    },
+    {
+      name: "Mid Fade",
+      img: "image/Diamond3.jpg",
+      desc: "Balances proportions.",
+      match: "Best for: Diamond, Oval"
+    },
+    {
+      name: "Buzz Cut",
+      img: "image/Diamond4.jpg",
+      desc: "Clean and sharp minimal look.",
+      match: "Best for: Diamond"
+    }
+  ]
+};
+
+/* SHOW RESULTS */
+function showHaircuts(shape) {
+  const grid = document.getElementById("resultGrid");
+  const title = document.getElementById("resultTitle");
+
+  title.textContent = `Best Haircuts for ${shape} Face`;
+  grid.innerHTML = "";
+
+  haircutData[shape].forEach((cut) => {
+    const card = `
+      <div class="result-card"
+        onclick="openModal('${cut.img}', '${cut.name}', '${cut.desc}', '${cut.match}')">
+
+        <div class="card-image">
+          <img src="${cut.img}" alt="${cut.name}">
+        </div>
+
+        <div class="card-content">
+          <h3>${cut.name}</h3>
+        </div>
+
+      </div>
+    `;
+
+    grid.innerHTML += card;
+  });
+
+  document.getElementById("results")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+/* MODAL */
+function openModal(img, title, desc, match) {
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("modalImg").src = img;
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalDesc").textContent = desc;
+  document.getElementById("modalMatch").textContent = match;
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+/* CLICK OUTSIDE MODAL */
+window.onclick = function (e) {
+  const modal = document.getElementById("modal");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+};
+
+</script>
+
+</body>
+</html>
